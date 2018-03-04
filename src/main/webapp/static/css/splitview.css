@@ -1,0 +1,4 @@
+.ui-splitview { display: inline-block; margin: 0; padding: 0; overflow: hidden; }
+.ui-splitview-splitter { display: inline-block; width: 1px; border: 2px solid white; background: grey; margin: 0; padding: 0; cursor: col-resize; vertical-align: top; }
+.ui-splitview-pane { display: inline-block; margin: 0; padding: 5px; border: 1px solid grey; border-radius: 5px; }
+.ui-splitview-content { margin: 0; padding: 0; overflow: auto; white-space: nowrap; }

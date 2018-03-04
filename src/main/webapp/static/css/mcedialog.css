@@ -1,0 +1,7 @@
+.ui-front.over-mce-modal { z-index: 66000 !important; }
+
+/*
+.val-dialog-tinymce { padding: 0; border: none; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+*/
+.val-dialog-tinymce>.ui-dialog-titlebar { border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+.val-dialog-tinymce>.ui-dialog-content { padding: 0; }

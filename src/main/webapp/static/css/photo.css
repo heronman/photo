@@ -1,0 +1,66 @@
+body, html {
+    line-height: 13px;
+    font-size: 12px;
+    font-family: Roboto, Arial, sans-serif;
+    color: #666;
+    margin: 0;
+}
+
+.logobar {
+    font-weight: bold;
+    font-size: 30px;
+    line-height: 30px;
+    color: #000;
+    display: block;
+    text-decoration: none;
+}
+
+.top {
+    padding-left: 52px;
+    padding-top: 52px;
+    height: 122px;
+}
+
+ul.menus {
+    display: block;
+    width: 186px;
+    position: absolute;
+    margin: 0;
+    list-style: none;
+}
+
+ul.menus>li, ul.menus a {
+    color: #666;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+ul.menus>li:hover, ul.menus a:hover {
+    color: black;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.menus.top {
+    top: 0;
+}
+
+.menus.bottom {
+    bottom: 0;
+}
+
+.left-pane {
+    position: absolute;
+    top: 122px;
+    bottom: 52px;
+    padding-left: 52px;
+}
+
+.photo-pane {
+    position: absolute;
+    top: 122px;
+    left: 290px;
+    width: 200px;
+    height: 200px;
+}

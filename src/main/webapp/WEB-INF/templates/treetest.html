@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Test</title>
+    <link rel="stylesheet" th:href="@{/static/css/jquery/jquery-ui.css}">
+    <link rel="stylesheet" th:href="@{/static/css/admin.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/stdform.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/splitview.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/treeview.css}"/>
+    <link rel="stylesheet" th:href="@{/static/css/mcedialog.css}"/>
+
+    <script th:inline="javascript" type="application/javascript">
+        /*<![CDATA[*/
+        Admin.listUrl = [[${listUrl}]];
+        /*]]>*/
+    </script>
+
+    <script type="text/javascript" th:src="@{/static/js/jquery/jquery-3.3.1.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery/jquery-ui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/jquery.autobuttons.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/treeview.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/treeview-test.js}"></script>
+
+    <script type="text/javascript" th:src="@{/static/js/splitview.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/treebrowser.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/uploadcollector.js}"></script>
+
+    <script type="text/javascript" th:src="@{/static/js/admin/imagemanager.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/admin/admin.js}"></script>
+    <script type="text/javascript" th:src="@{/static/js/admin/main.js}"></script>
+
+    <style type="text/css">
+        html, body {
+            font-family: Lucida Grande, Lucida Sans, Arial, sans-serif;
+            font-size: 12px;
+        }
+
+        .val-treenode > .ui-icon {
+            top: 2px;
+        }
+    </style>
+</head>
+<body>
+<div class="adm-header">PHOTO - система управления контентом</div>
+<div class="adm-menu"><div th:include="menu.html"></div></div>
+<div class="adm-workspace">
+    <!--<% if (request.getAttribute("error") != null) { %>-->
+    <!--<h1 class='section-header'>Ошибка</h1>-->
+    <!--<p class='status error'>(ошибка)</p>-->
+    <!--<p><a href="javascript:back()">&lt;&lt;&nbsp;Назад</a></p>-->
+    <!--<% } else { %>-->
+    <!--<h1 class='section-header'>{_TITLE_PAGE_/}</h1>-->
+    <!--{@block _CONTENT_/}-->
+    <!--<% } %>-->
+</div>
+<div class="adm-footer-wrapper"><div class="adm-footer">VJ-Framework 2.0 &copy; 2013-2014 by *Valinor*</div></div>
+
+<div class="templates" style="display: none">
+    <div class="imgb-folder">
+        <span class="path"></span>
+        <input type="text" disabled class="name">
+        <button class="rename" disabled icon="ui-icon-check" text="false">Переименовать</button>
+    </div>
+    <div class="imgb-buttons">
+        <button class="id">&nbsp;</button>
+        <button class="remove-items" text="false" icon="ui-icon-trash">Удалить отмеченные</button>
+        <button class="add-folder" text="false" icon="ui-icon-folder-collapsed">Добавить папку</button>
+        <button class="upload" text="false" icon="ui-icon-disk">Загрузка</button>
+    </div>
+    <div class="img-folder-content"><div class="img-list"></div></div>
+    <div class="upload-bin"></div>
+    <div class="img-item">
+        <div class="wrapper">
+            <img>
+            <div class="bp">
+                <!--span class="ui-icon ui-icon-none is-title"></span-->
+                <span class="ui-icon lock"></span>
+                <span class="ui-icon ui-icon-none select"></span>
+            </div>
+        </div>
+        <div>
+            <span class="name"></span><!--br>
+			<span class="mime"></span><br>
+			<span class="size"></span-->
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+.form { border: 1px solid #dddddd; border-collapse: collapse; }
+.form .field { padding: 5px; margin: 0; border-bottom: 1px solid #dddddd; }
+.form .field span { display: inline-block; box-sizing: border-box; vertical-align: top; }
+.form .field .label { font-weight: bold; width: 70px; margin-right: 5px; }
+.form .field .value { word-wrap: break-word; white-space: normal; }
+.form .field .value input, .form .field .value textarea { box-sizing: border-box; width: 100%; }
+
+/*.form p.even { background: none; } *
+.form .static {}
+.form .header { display: inline-block; width: 200px; font-weight: bold; }
+.form th, .form td { vertical-align: top; text-align: left; border: none !important; border-bottom: 1px solid #dddddd !important; }
+.form textarea { width: 500px; height: 150px; }
+
+fieldset.form { display: inline-block; min-width: 380px; }
+fieldset.form p { border: none; }
+.form .label { display: inline-block; width: 50px; margin-right: 5px; vertical-align: top; }
+.form .value { width: 200px; }
+*/
+table.form { margin: 0; padding: 0; border-collapse: collapse; }
+table.form .label, table.form th {
+    width: auto;
+    padding: 5px;
+    display: table-cell;
+    margin: 0px;
+}
+table.form .value, table.form td {
+    display: table-cell;
+    padding: 5px;
+    width: auto;
+}
