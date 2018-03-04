@@ -16,7 +16,6 @@
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <spring.version>5.0.2.RELEASE</spring.version>
-        <spring.security.version>5.0.0.RELEASE</spring.security.version>
         <jackson.version>2.9.3</jackson.version>
     </properties>
 
@@ -61,22 +60,17 @@
             <version>0.24.0.RELEASE</version>
         </dependency>
 
-        <!--<dependency>-->
-            <!--<groupId>org.thymeleaf</groupId>-->
-            <!--<artifactId>thymeleaf-spring5</artifactId>-->
-            <!--<version>3.0.9.RELEASE</version>-->
-        <!--</dependency>-->
-
-        <dependency>
-            <groupId>com.drewnoakes</groupId>
-            <artifactId>metadata-extractor</artifactId>
-            <version>2.11.0</version>
-        </dependency>
-
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.5</version>
+        </dependency>
+
+        <!-- imaging -->
+        <dependency>
+            <groupId>com.drewnoakes</groupId>
+            <artifactId>metadata-extractor</artifactId>
+            <version>2.11.0</version>
         </dependency>
 
         <!-- testing -->
@@ -84,7 +78,6 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.12</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>
