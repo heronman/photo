@@ -2,6 +2,7 @@ package net.agl.photo.controller;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import net.agl.photo.api.model.StorageItemJSON;
 import net.agl.photo.api.service.PhotoService;
 import net.agl.photo.exceptions.AlreadyExistsException;
 import net.agl.photo.exceptions.InternalException;
@@ -13,7 +14,6 @@ import net.agl.photo.model.Photo;
 import net.agl.photo.model.PhotoResourceWrapper;
 import net.agl.photo.model.StorageItemResourceWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.hateoas.ResourceSupport;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -66,7 +66,7 @@ public class PhotoController {
             method = RequestMethod.PUT,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<ResourceSupport> createAlbum(@RequestBody ItemAttrs attrs) {
+    public HttpEntity<StorageItemJSON> createAlbum(@RequestBody ItemAttrs attrs) {
         return ResponseEntity.ok(new AlbumResourceWrapper(service.createAlbum(attrs.getTitle(), attrs.getDescription())));
     }
 
@@ -74,7 +74,8 @@ public class PhotoController {
             method = RequestMethod.GET,
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<List<? extends ResourceSupport>> listAlbumContents(@PathVariable("album") String album) {
+    public HttpEntity<List<? extends StorageItemJSON>> listAlbumContents(@PathVariable("album") String album) {
+        
         return new ResponseEntity<>(service
                 .getAlbumContent(album).map(PhotoResourceWrapper::new)
                 .collect(Collectors.toList()), HttpStatus.OK);
@@ -84,7 +85,7 @@ public class PhotoController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<ResourceSupport> updateAlbum(@PathVariable("album") String albumId, @RequestBody ItemAttrs attrs) {
+    public HttpEntity<StorageItemJSON> updateAlbum(@PathVariable("album") String albumId, @RequestBody ItemAttrs attrs) {
         Album album = service.getAlbum(albumId);
         album.setTitle(attrs.title);
         album.setDescription(attrs.description);
@@ -102,7 +103,7 @@ public class PhotoController {
             method = RequestMethod.PUT,
             consumes = MediaType.MULTIPART_FORM_DATA_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<ResourceSupport> upload(@PathVariable("album") String albumId,
+    public HttpEntity<StorageItemJSON> upload(@PathVariable("album") String albumId,
                                               @RequestPart(name = "file") MultipartFile file,
                                               @RequestParam(value = "title", required = false) String title,
                                               @RequestParam(value = "description", required = false) String description) {
@@ -119,9 +120,9 @@ public class PhotoController {
             method = RequestMethod.POST,
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpEntity<ResourceSupport> updatePhoto(@PathVariable("album") String albumId,
-                                                   @PathVariable("photo") String photoId,
-                                                   @RequestBody ItemAttrs attrs) {
+    public HttpEntity<StorageItemJSON> updatePhoto(@PathVariable("album") String albumId,
+                                               @PathVariable("photo") String photoId,
+                                               @RequestBody ItemAttrs attrs) {
         Photo photo = service.getPhoto(albumId, photoId);
         photo.setTitle(attrs.title);
         photo.setDescription(attrs.description);

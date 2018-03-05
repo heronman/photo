@@ -2,18 +2,20 @@ package net.agl.photo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import net.agl.photo.api.model.StorageItem;
-import net.agl.photo.api.model.StorageItemRO;
-import org.springframework.hateoas.ResourceSupport;
+import net.agl.photo.api.model.StorageItemJSON;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author valinor
  * @since 24.01.2018
  */
-public abstract class StorageItemResourceWrapper extends ResourceSupport implements StorageItemRO {
+public abstract class StorageItemResourceWrapper implements StorageItemJSON {
     private StorageItem entity;
     private Integer order;
+    private Map<String, String> links = new HashMap<>();
 
     public StorageItemResourceWrapper(StorageItem entity) {
         this.entity = entity;
@@ -59,6 +61,17 @@ public abstract class StorageItemResourceWrapper extends ResourceSupport impleme
         return entity;
     }
 
-    public abstract Boolean isFolder();
+    @Override
+    public Map<String, String> getLinks() {
+        return links;
+    }
+
+    public void addLink(String rel, String url) {
+        links.put(rel, url);
+    }
+
+    public void removeLink(String rel) {
+        links.remove(rel);
+    }
 
 }

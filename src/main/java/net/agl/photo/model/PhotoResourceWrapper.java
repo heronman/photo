@@ -1,9 +1,5 @@
 package net.agl.photo.model;
 
-import net.agl.photo.controller.PhotoController;
-
-import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
-
 /**
  * @author valinor
  * @since 24.01.2018
@@ -15,7 +11,7 @@ public class PhotoResourceWrapper extends StorageItemResourceWrapper {
     }
 
     public void setLinks() {
-        add(linkTo(PhotoController.class).slash(getAlbumId()).slash(getItemId()).withSelfRel());
+        addLink("self", "photo/" + getAlbumId() + "/" + getItemId());
     }
 
     public String getAlbumId() {

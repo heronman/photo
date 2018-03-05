@@ -271,11 +271,6 @@ public class FileService implements PhotoService {
         }
     }
 
-//    private static void resetOrderMap(Path path) {
-//        if(orderMap != null)
-//            orderMap.remove(path);
-//    }
-
     private Path getPath(StorageItem item) {
         if (item instanceof Album)
             return root.resolve(item.getId());

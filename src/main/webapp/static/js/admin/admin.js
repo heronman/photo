@@ -1,12 +1,5 @@
 $(function() {
-    let base = './photo/';
-
-    function getUrl(links, rel) {
-        for(let l of links) {
-            if (l.rel === rel)
-                return l.href;
-        }
-    }
+    let base = 'photo/';
 
     let images = $("<div>").treebrowser({
         width: 800,
@@ -23,10 +16,11 @@ $(function() {
                 }
             ],
             lazyLoad: function() {
-                let self = this;
-                let data = $(this).treenode('data');
-                let url = data && data.links ? getUrl(data.links, 'self') : base;
-                return $.ajax({
+                let links = $(this).treenode('data', 'links');
+                let url = (links && links.self) ?
+                    links.self : base;
+
+                 return $.ajax({
                     url: url,
                     type: 'GET'
                 }).then(data => {
@@ -42,10 +36,10 @@ $(function() {
                 });
             },
             select: function() {
-                let data = $(this).treenode('data');
-                if(data.folder)
-                    return;
-                images.treebrowser('rightPane').empty().append($("<img>").attr('src', getUrl(data.links, 'self')));
+                if(!$(this).treenode('folder')) {
+                    let links = $(this).treenode('data', 'links');
+                    images.treebrowser('rightPane').empty().append($("<img>").attr('src', links.self));
+                }
             },
             load: function() {
                 // TODO
