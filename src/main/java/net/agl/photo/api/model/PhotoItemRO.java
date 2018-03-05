@@ -8,4 +8,8 @@ public interface PhotoItemRO extends StorageItemRO {
 
     Long getSize();
 
+    Integer getWidth();
+
+    Integer getHeight();
+
 }

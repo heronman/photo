@@ -75,7 +75,7 @@ public class PhotoController {
             consumes = MediaType.ALL_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpEntity<List<? extends StorageItemJSON>> listAlbumContents(@PathVariable("album") String album) {
-        
+
         return new ResponseEntity<>(service
                 .getAlbumContent(album).map(PhotoResourceWrapper::new)
                 .collect(Collectors.toList()), HttpStatus.OK);
@@ -137,6 +137,15 @@ public class PhotoController {
             return ResponseEntity.noContent().build();
         } catch (NoSuchFileException | FileNotFoundException e) {
             return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+
+    @RequestMapping(path = "/{album}/{photo}/metadata", method = RequestMethod.GET)
+    public HttpEntity<StorageItemJSON> getMetadata(@PathVariable("album") String album, @PathVariable("photo") String photo) {
+        try {
+            return ResponseEntity.ok(new PhotoResourceWrapper(service.getPhoto(album, photo)));
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

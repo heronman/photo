@@ -10,4 +10,8 @@ public interface PhotoItem extends PhotoItemRO {
 
     void setSize(Long size);
 
+    void setWidth(int width);
+
+    void setHeight(int height);
+
 }

@@ -14,10 +14,15 @@ import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.imageio.ImageIO;
+import javax.imageio.ImageReader;
+import javax.imageio.stream.FileImageInputStream;
+import javax.imageio.stream.ImageInputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -36,9 +41,12 @@ import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -318,8 +326,10 @@ public class FileService implements PhotoService {
             BasicFileAttributes attrs = Files.readAttributes(getPath(item), BasicFileAttributes.class);
             item.setCreated(new Date(attrs.creationTime().toMillis()));
             item.setModified(new Date(attrs.lastModifiedTime().toMillis()));
-            if (item instanceof PhotoItem)
-                ((PhotoItem) item).setSize(attrs.size());
+            if (item instanceof Photo) {
+                ((Photo) item).setSize(attrs.size());
+                readImageDimension((Photo) item);
+            }
         } catch (IOException ignore) {}
 
         return item;
@@ -343,6 +353,32 @@ public class FileService implements PhotoService {
             throw new ItemNotFoundException(e);
         } catch (IOException e) {
             throw new InternalException(e);
+        }
+    }
+
+    private void readImageDimension(Photo photo) {
+        File imgFile = getPath(photo).toFile();
+        try {
+            String mime = com.drew.imaging.FileTypeDetector.detectFileType(new BufferedInputStream(new FileInputStream(imgFile))).getMimeType();
+            Iterator<ImageReader> readers = ImageIO.getImageReadersByMIMEType(mime);
+            while (readers.hasNext()) {
+                ImageReader reader = readers.next();
+                try (ImageInputStream stream = new FileImageInputStream(imgFile)) {
+                    reader.setInput(stream);
+                    photo.setWidth(reader.getWidth(reader.getMinIndex()));
+                    photo.setHeight(reader.getHeight(reader.getMinIndex()));
+                    return;
+                } catch (IOException e) {
+                    Logger.getLogger(FileService.class.getName()).log(Level.WARNING, "Error reading image: " + imgFile.getAbsolutePath(), e);
+                } finally {
+                    if (reader != null)
+                        reader.dispose();
+                }
+            }
+            throw new InternalException("Can't find working reader for image file " + imgFile.getAbsolutePath());
+        } catch (IOException e) {
+            Logger.getLogger(FileService.class.getName()).log(Level.SEVERE, "Error reading image: " + imgFile.getAbsolutePath(), e);
+            throw new InternalException("Error reading image: " + imgFile.getAbsolutePath(), e);
         }
     }
 

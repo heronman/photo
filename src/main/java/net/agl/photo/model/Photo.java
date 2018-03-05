@@ -10,6 +10,8 @@ public class Photo extends BasicStorageItem implements PhotoItem {
 
     private final String albumId;
     private Long size;
+    private int width;
+    private int height;
 
     public Photo(String albumId, String id) {
         super(id);
@@ -31,4 +33,23 @@ public class Photo extends BasicStorageItem implements PhotoItem {
         this.size = size;
     }
 
+    @Override
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    @Override
+    public Integer getWidth() {
+        return width;
+    }
+
+    @Override
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    @Override
+    public Integer getHeight() {
+        return height;
+    }
 }

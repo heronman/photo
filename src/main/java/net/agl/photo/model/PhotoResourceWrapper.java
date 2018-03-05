@@ -32,4 +32,12 @@ public class PhotoResourceWrapper extends StorageItemResourceWrapper {
         return getEntity().getSize();
     }
 
+    public Integer getWidth() {
+        return getEntity().getWidth();
+    }
+
+    public Integer getHeight() {
+        return getEntity().getHeight();
+    }
+
 }
